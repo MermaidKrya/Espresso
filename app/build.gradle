@@ -1,0 +1,52 @@
+apply plugin: 'com.android.application'
+apply plugin: 'de.mannodermaus.android-junit5'
+
+
+android {
+    compileSdkVersion 29            //версия SDK, на которой происходит компиляция проекта
+    buildToolsVersion "29.0.2"      //компонент Android SDK, необходимый для создания приложений Android
+
+    testOptions {                   //варианты(настройка) запуска теста
+        unitTests.all {             //настраивает все задачи 
+            useJUnitPlatform()
+        }
+    }
+    
+    defaultConfig {
+        applicationId "com.example.navigationtest"      //идентификатор приложения
+        minSdkVersion 15                                //минимальный уровень API, необходимый для запуска приложения. 
+        targetSdkVersion 29                             //версия API на которой будут запускаться тесты app
+        versionCode 1                           //внутренний номер версии(для определения новизны версии)
+        versionName "1.0"                       //номер версии, показанного пользователю
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"         //инструмент для запуска тестов
+    }
+    
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
+    implementation 'com.google.android.material:material:1.2.0-alpha01'
+    implementation 'androidx.vectordrawable:vectordrawable:1.0.0-beta01'
+    //зависимости для junit тустов
+    testImplementation 'androidx.test.ext:junit:1.1.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.5.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
+    //зависимости для инструментальных тестов
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha02'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test:core:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.0'
+}
+
